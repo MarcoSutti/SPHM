@@ -6,15 +6,15 @@ The code is mainly based on the corresponding FORTRAN code contained in:
 [1] Liu GR, Liu MB (2003) Smoothed particle hydrodynamics: a meshfree
     particle method. World Scientific, Singapore.
 
-If there are any problems or bugs, feel free to email me at marco.sutti@unige.ch .
+If there are any problems or bugs, feel free to email me at Marco.Sutti (at) unige.ch
 
 
-## I) VERSION HISTORY
+## I) Version History
 
 - Ver 1, 11 July 2021: initial release.
 
 
-## II) CONTENTS
+## II) Contents
 
 - eos: contains the equations of state for ideal gas and artificial water.
 - examples: contains parameters and data for the 1D shock tube and the
@@ -25,7 +25,7 @@ If there are any problems or bugs, feel free to email me at marco.sutti@unige.ch
 - videos: contains videos of the simulations.
 
 
-## III) INSTALLATION AND USAGE
+## III) Installation and Usage
 
 No installation is required. Simply use the *Driver_SPH.m* to perform an
 SPH simulation. The results of the simulations will be saved into matfiles
@@ -35,6 +35,6 @@ the simulation. The script *Driver_Shocktube_Profiles.m* generates the
 profile plots for the shock tube example.
 
 
-## IV) LICENSE
+## IV) License
 
 Code written by me is GPL licensed.
