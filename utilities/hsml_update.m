@@ -54,6 +54,7 @@ elseif sph.sle == 2
     sph.hsml = sph.hsml + timeint.dt * dhsml_dt;
     
     % If the updated smoothing length is negative, subtract timeint.dt*dhsml(i) instead of adding it
+    % Use logical indexing
     idx_neg = sph.hsml<=0;
     sph.hsml(idx_neg) = sph.hsml(idx_neg) - timeint.dt * dhsml_dt(idx_neg);
     

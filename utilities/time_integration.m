@@ -32,8 +32,8 @@ v_min = zeros( geom.nrp, geom.dim );
 % Indexes of Real Particles:
 irp = 1:geom.nrp;
 
-% Initialization of arrays where we will store the history of position,
-% velocity, pressure, density, and time.
+% Initialization of arrays where we store the history of position,
+% velocity, pressure, energy, density, and time.
 x_hist = zeros( geom.nrp, geom.dim * tip.max_nts );
 v_hist = zeros( geom.nrp, geom.dim * tip.max_nts );
 p_hist = zeros( geom.nrp, tip.max_nts );
@@ -51,7 +51,7 @@ for its = ( tip.nstart + 1 ):( tip.nstart + tip.max_nts )
     
     if its ~= 1
         %If this is not the first time step, then set minimum energy
-        e_min(irp) = sph.e(irp);
+        e_min = sph.e(irp);
         
         temp_e = zeros( geom.nrp, 1 );
         
@@ -60,7 +60,7 @@ for its = ( tip.nstart + 1 ):( tip.nstart + tip.max_nts )
         end
         
         %... update energy half a time step
-        sph.e(irp) = sph.e(irp) + (tip.dt/2) * ( dedt(irp) + temp_e );
+        sph.e(irp) = sph.e(irp) + (tip.dt/2) * ( dedt + temp_e );
         
         %If the energy so computed is negative, then set it to zero
         sph.e( sph.e(irp) < 0 ) = 0;
@@ -68,7 +68,7 @@ for its = ( tip.nstart + 1 ):( tip.nstart + tip.max_nts )
         if ~sph.sum_density
             %If we are not using the summation density approach...
             %... set minimum density
-            rho_min(irp) = flp.rho(irp);
+            rho_min = flp.rho(irp);
             
             temp_rho = zeros( geom.nrp, 1 );
             
@@ -81,7 +81,7 @@ for its = ( tip.nstart + 1 ):( tip.nstart + tip.max_nts )
         end
         
         %... set minimum velocity...
-        v_min(irp, :) = geom.v(irp, :);
+        v_min = geom.v(irp, :);
         %... update velocity half a time step
         geom.v(irp, :) = geom.v(irp, :) + (tip.dt/2) * tip.dvdt(irp, :);
     end
@@ -98,7 +98,7 @@ for its = ( tip.nstart + 1 ):( tip.nstart + tip.max_nts )
         end
         
         % If this is the first timestep, then update energy half a time step
-        sph.e(irp) = sph.e(irp) + (tip.dt/2) * ( dedt(irp) + temp_e );
+        sph.e(irp) = sph.e(irp) + (tip.dt/2) * ( dedt + temp_e );
         
         % If the energy so computed is negative, then set it to zero
         sph.e( sph.e(irp) < 0 ) = 0;
@@ -139,7 +139,7 @@ for its = ( tip.nstart + 1 ):( tip.nstart + tip.max_nts )
             temp_e = -geom.nsym * flp.p.*geom.v(irp)./( geom.x(irp).*flp.rho );
         end
         
-        sph.e(irp) = e_min(irp) + tip.dt * ( dedt(irp) + temp_e );
+        sph.e(irp) = e_min + tip.dt * ( dedt + temp_e );
         
         % If the energy so computed is negative then set it to zero
         sph.e( sph.e(irp) < 0 ) = 0;
@@ -155,15 +155,16 @@ for its = ( tip.nstart + 1 ):( tip.nstart + tip.max_nts )
             
             % If we are not using the summation density approach update
             % density a full time step
-            flp.rho(irp) = rho_min(irp) + tip.dt * ( tip.drhodt(irp) + temp_rho );
+            flp.rho(irp) = rho_min + tip.dt * ( tip.drhodt(irp) + temp_rho );
         end
         
         % update velocity a full time step...
         if sph.avg_velocity == true
-            geom.v(irp, :) = v_min(irp, :) + tip.dt * tip.dvdt(irp, :) + tip.avg_v(irp, :);
+            geom.v(irp, :) = v_min + tip.dt * tip.dvdt(irp, :) + tip.avg_v(irp, :);
         elseif sph.avg_velocity == false
-            geom.v(irp, :) = v_min(irp, :) + tip.dt * tip.dvdt(irp, :);
+            geom.v(irp, :) = v_min + tip.dt * tip.dvdt(irp, :);
         end
+        
         % update particle position a full time step...
         geom.x(irp, :) = geom.x(irp, :) + tip.dt * geom.v(irp, :);
     end
@@ -171,8 +172,8 @@ for its = ( tip.nstart + 1 ):( tip.nstart + tip.max_nts )
     % calculate current time
     time = time + tip.dt;
     
-    % MS, 20.06.2021: Save position and velocity history to the variables
-    % x_hist, v_hist, p_hist, and t_hist.
+    % MS, 20.06.2021: Save position, velocity, pressure, energy and density
+    % histories to the variables x_hist, v_hist, p_hist, e_hist, and rho_hist.
     if geom.dim ~= 1
         x_hist( :, 2*(its-1)+1:2*its ) = geom.x(irp, :);
         v_hist( :, 2*(its-1)+1:2*its ) = geom.v(irp, :);

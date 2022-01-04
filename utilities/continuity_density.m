@@ -5,6 +5,8 @@ function [ drhodt ] = continuity_density( geom, sph, ia )
 % Created:     10.01.2021
 % Last change: 10.06.2021
 
+% Output: drhodt
+
 %   Jun 10, 2021:
 %       Minor changes. Vectorization of the computation of W_i and
 %       fluid_param.rho.

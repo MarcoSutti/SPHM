@@ -23,8 +23,13 @@ geom.nvp = 0;
 
 % Position of virtual boundary particles.
 if sph.virtual_part
-    if sph.example == 2
-        [ geom, sph, flp ] = shear_cavity_virtual_part( geom, sph, flp );
+    switch sph.example
+        case 2
+            [ geom, sph, flp ] = shear_cavity_virtual_part( geom, sph, flp );
+        case 3
+            [ geom, sph, flp ] = dam_collapse_virtual_part( geom, sph, flp );
+        otherwise
+            error('Unknown example.');
     end
 end
 
@@ -104,35 +109,12 @@ irp = 1:geom.nrp;
 % - the acceleration due to internal forces, int_dvdt
 % - the acceleration due to external forces, ext_dvdt
 % - the acceleration due to artificial sph_param.viscosity, art_dvdt
-% if sph.ext_force==true && sph.visc_artificial==true
-%     tip.dvdt = int_dvdt(irp, :) + ext_dvdt(irp, :) + art_dvdt(irp, :);
-% elseif sph.ext_force==false && sph.visc_artificial==true
-%     tip.dvdt = int_dvdt(irp, :) + art_dvdt(irp, :);
-% elseif sph.ext_force==true && sph.visc_artificial==false
-%     tip.dvdt = int_dvdt(irp, :) + ext_dvdt(irp, :);
-% else
-%     tip.dvdt = int_dvdt(irp,:);
-% end
-% size(ext_dvdt)
-% size(art_dvdt)
 tip.dvdt = int_dvdt(irp, :) + ext_dvdt(irp, :) + art_dvdt(irp, :);
 
 % The TOTAL ENERGY VARIATION is given by:
 % - energy variation due to internal forces, int_dedt
 % - artificial sph_param.viscosity, art_visc
 % - artificial heat, art_heat
-% if sph.heat_artificial==true && sph.visc_artificial==true
-%     tip.dedt = int_dedt(irp) + art_visc(irp) + art_heat(irp);
-% elseif sph.heat_artificial==true && sph.visc_artificial==false
-%     tip.dedt = int_dedt(irp) + art_heat(irp);
-% elseif sph.heat_artificial==false && sph.visc_artificial==true
-%     tip.dedt = int_dedt(irp) + art_visc(irp);
-% else
-%     tip.dedt = int_dedt(irp);
-% end
-% size(art_visc)
-% size(art_heat)
-% tip.dedt = int_dedt(irp) + art_visc(irp) + art_heat(irp);
 tip.dedt = int_dedt(irp) + art_visc(irp) + art_heat;
 
 end

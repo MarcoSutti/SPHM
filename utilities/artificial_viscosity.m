@@ -1,5 +1,6 @@
 function [ art_dvdt, art_visc, max_phi_ij ] = artificial_viscosity( geom, sph, flp, ia )
 
+% function [ art_dvdt, art_visc, max_phi_ij ] = artificial_viscosity( geom, sph, flp, ia )
 % art_dvdt: part of the acceleration due to the artificial viscosity
 
 % Created:     ??.??.2011
@@ -50,7 +51,7 @@ for k = 1:ia.niap          % For every interacting pair...
     
     phi_ij = ( hsml_ij * v_ij_dot_x_ij )/( norm(x_ij)^2 + 0.01 * hsml_ij^2 );
     
-    % Stores all the phi_ij for a later use (in the calculation of the
+    % Store all the phi_ij for a later use (in the calculation of the
     % adaptive time-step)
     phi(k) = phi_ij;
     

@@ -1,8 +1,12 @@
 function [ avg_v ] = avg_velocity( geom, sph, flp, ia )
 
+% function [ avg_v ] = avg_velocity( geom, sph, flp, ia )
 % Calculates the average velocity to correct velocity in order to prevent
 % penetration (Monaghan, 1992). See p. 138, about XSPH technique,
 % or Monaghan, 1992.
+
+% Created:     ??.??.2011
+% Last change: 02.02.2022
 
 % avg_v: average velocity of each particle.
   
@@ -13,11 +17,11 @@ function [ avg_v ] = avg_velocity( geom, sph, flp, ia )
 
 epsilon = 0.3;
 
-%Initialization of the average velocity
+% Initialization of the average velocity
 avg_v = zeros( geom.tnp, geom.dim );   % MS, 24.06.2021: Shouldn't it be geom.nrp?
 
-%Compute the average velocity
-for k = 1:ia.niap         %For each interacting pair...
+% Compute the average velocity
+for k = 1:ia.niap         % For each interacting pair...
     i = ia.pair_i(k);
     j = ia.pair_j(k);
     

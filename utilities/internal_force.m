@@ -21,7 +21,7 @@ function [ flp, sph, int_dedt, int_dvdt ] = internal_force( geom, sph, flp, ia )
 % Initialization of the deviator of the strecthing tensor, velocity divergence,
 % viscous energy, internal energy, art_dvdt ...
 % devD_xx(i), devD_yy(i), devD_zz(i), devD_xy(i), etc. are the components
-% of the deviator of the strecthing tensor for particle i.flp.c
+% of the deviator of the strecthing tensor for particle i
 devD_xx = zeros( geom.tnp, 1 );
 devD_yy = zeros( geom.tnp, 1 );
 devD_zz = zeros( geom.tnp, 1 );
@@ -31,8 +31,8 @@ devD_yz = zeros( geom.tnp, 1 );
 sph.viscous_entropy = zeros( geom.tnp, 1 );
 flp.c = zeros( geom.tnp, 1 );
 p_work = zeros( geom.tnp, 1 );
-% int_dedt = zeros( geom.tnp, 1 );       %time rate of change of the specific internal energy
-int_dvdt = zeros( geom.tnp, geom.dim );   %acceleration due to internal forces
+% int_dedt = zeros( geom.tnp, 1 );       % time rate of change of the specific internal energy
+int_dvdt = zeros( geom.tnp, geom.dim );  % acceleration due to internal forces
 
 %==========================================================================
 % Calculate the SPH approximation for the deviator of the rate of
@@ -55,8 +55,8 @@ if sph.visc                      % If the fluid is viscous, then...
         if geom.dim == 1
             % one-dimensional devD has 1 component
             h_xx = 2/3 * v_ji(1) * ia.dW_ijdx(k,1);
-            % ia.dW_ijdx is the matrix of size ia.niap*d
-            % which stores the derivatives of the kernel in the d-direction for every interacting pair
+            % ia.dW_ijdx is the matrix of size ia.niap * geom.dim which
+            % stores the derivatives of the kernel in the d-direction for every interacting pair
         elseif geom.dim == 2
             % two-dimensional devD has 4 components
             % (but 2 of them are equal, so we are left with 3 components)
@@ -144,7 +144,7 @@ end
 % Compute pressure and speed of sound with the equation of state
 if flp.fluid_type == 1           % If we are dealing with a gas
     flp = p_gas( flp, sph );
-elseif flp.fluid_type == 2     % If we are dealing with water
+elseif flp.fluid_type == 2       % If we are dealing with water
     flp = p_art_water( flp, sph, geom );
 end
 
@@ -164,7 +164,7 @@ for k=1:ia.niap   % For each interacting pair...
     %... if we use the symmetrization with 1/( flp.rho(i) * flp.rho(j) )
     if sph.part_approx == 1
         
-        rho_factor = 1/( flp.rho(i) * flp.rho(j) );
+        rho_ij = 1/( flp.rho(i) * flp.rho(j) );
         
         for d=1:geom.dim     %... for every spatial geom.dimension...
             
@@ -182,7 +182,7 @@ for k=1:ia.niap   % For each interacting pair...
                     if geom.dim >= 2        % if the problem is 2D, we add the y-part to the x-coordinate of acceleration
                         eom_forces = eom_forces + 2 * ( sph.eta(i) * devD_xy(i) ...
                             + sph.eta(j) * devD_xy(j) ) * ia.dW_ijdx(k,2);
-                        if (geom.dim==3)    % if the problem is 3D, we add the z-part to the x-coordinate of acceleration
+                        if geom.dim==3      % if the problem is 3D, we add the z-part to the x-coordinate of acceleration
                             eom_forces = eom_forces + 2 * ( sph.eta(i) * devD_xz(i) ...
                                 + sph.eta(j) * devD_xz(j) ) * ia.dW_ijdx(k,3);
                         end
@@ -206,19 +206,19 @@ for k=1:ia.niap   % For each interacting pair...
             
             %Acceleration due to internal forces (int_dvdt) in the d-direction...
             %... for particle i:
-            int_dvdt(i,d) = int_dvdt(i,d) + sph.mass(j) * rho_factor * eom_forces;
+            int_dvdt(i,d) = int_dvdt(i,d) + sph.mass(j) * rho_ij * eom_forces;
             %... for particle j:
-            int_dvdt(j,d) = int_dvdt(j,d) - sph.mass(i) * rho_factor * eom_forces;
-            %minus sign because the forces on particle j are opposite to those on
-            %particle i
+            int_dvdt(j,d) = int_dvdt(j,d) - sph.mass(i) * rho_ij * eom_forces;
+            % minus sign because the forces on particle j are opposite to those on
+            % particle i
             
         end       % end of the loop over d
         
         % Pressure work appearing in the energy equation...
         % ... for particle i:
-        p_work(i) = p_work(i) + 0.5 * sph.mass(j) * rho_factor * p_work_part;
+        p_work(i) = p_work(i) + 0.5 * sph.mass(j) * rho_ij * p_work_part;
         % ... for particle j:
-        p_work(j) = p_work(j) + 0.5 * sph.mass(i) * rho_factor * p_work_part;
+        p_work(j) = p_work(j) + 0.5 * sph.mass(i) * rho_ij * p_work_part;
         
         
         %======================================================================
@@ -284,7 +284,6 @@ end     %end of loop over the pairs
 
 %==========================================================================
 % Change of specific internal energy 
-% int_dedt = p_work + sph.viscous_entropy
 %==========================================================================
 int_dedt = p_work + sph.viscous_entropy;
 

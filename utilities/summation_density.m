@@ -5,6 +5,8 @@ function [ flp ] = summation_density( geom, sph, flp, ia )
 % Created:     ??.??.2011
 % Last change: 10.06.2021
 
+%   Jan 2, 2021:
+%       Added 
 %   Jun 10, 2021:
 %       Vectorization of the computation of W_i and flp.rho.
 %       Use MATLAB's arrayfun to apply the function kernel to each element
@@ -25,27 +27,27 @@ r = 0;
 % each element of array sph.hsml
 sd = arrayfun( @(hsml) kernel( r, hv, hsml, geom, sph ), sph.hsml );
 
-% contribution of particle i to its own W_i
-% (this can be looked on as an initialization of the kernel W_i(i))
+% Contribution of particle i to its own W_i.
+% This can be viewed as an initialization of the kernel W_i(i).
 W_i = sd.*sph.mass./flp.rho;
 
 % Now to the self-contribution we add all the other contributions due to the
 % interacting particles, to get the SPH approximation for W_i
-for k=1:ia.niap   %for the k-th interacting pair...
-    i = ia.pair_i(k);         %take the index of the first particle in the k-th interacting pair
-    j = ia.pair_j(k);         %take the index of the first particle in the k-th interacting pair
-    %The kernel of the first particle in the k-th interacting pair is
-    %given by the self-contribution to the kernel plus the contribution
-    %of the other particle in the pair, weighted with the kernel of the pair
+for k=1:ia.niap   % for the k-th interacting pair...
+    i = ia.pair_i(k);         % take the index of the first particle in the k-th interacting pair
+    j = ia.pair_j(k);         % take the index of the first particle in the k-th interacting pair
+    % The kernel of the first particle in the k-th interacting pair is
+    % given by the self-contribution to the kernel plus the contribution
+    % of the other particle in the pair, weighted with the kernel of the pair
     W_i(i) = W_i(i) + sph.mass(j)/flp.rho(j) * ia.W_ij(k);
-    %Mutatis mutandis...
+    % Mutatis mutandis...
     W_i(j) = W_i(j) + sph.mass(i)/flp.rho(i) * ia.W_ij(k);
 end
 
 % Self-contribution to the density flp.rho
 flp.rho = sd.*sph.mass;
 
-% SPH summation density flp.rho
+% Calculate the SPH approximation for flp.rho
 for k=1:ia.niap
     i = ia.pair_i(k);
     j = ia.pair_j(k);

@@ -9,20 +9,11 @@ function [ sph ] = viscosity( geom, sph )
 %   Jun 9, 2021:
 %       The logical indexing should give the same result as the older loop.
 
+% Initialization
 sph.eta = zeros( geom.tnp, 1 );
 
-
+% For gas particles, we do not have viscosity.
+% For water particles, we assume the value of 1.0e-3 kg/(m*s)
 sph.eta( abs(geom.part_type) == 2 ) = 1.0e-3;
-
-
-% for i=1:geom.nrp
-%     if abs(geom.part_type(i))==1          %If we are dealing with a gas...
-%         sph.eta(i) = 0;               %... gases do not have sph.viscosity
-%     elseif abs(geom.part_type(i))==2      %If we are dealing with water...
-%         if sph.visc                 %... if we consider water sph.viscosity...
-%             sph.eta(i) = 1.0e-3;      %... assume the value of 1.0e-3 kg/(m*s)
-%         end
-%     end
-% end
 
 end
