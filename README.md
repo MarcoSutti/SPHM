@@ -6,7 +6,7 @@ The code is mainly based on the corresponding FORTRAN code contained in:
 [1] Liu GR, Liu MB (2003) Smoothed particle hydrodynamics: a meshfree
     particle method. World Scientific, Singapore.
 
-If there are any problems or bugs, feel free to email me at Marco.Sutti (at) unige.ch
+If there are any problems or bugs, feel free to email me at msutti@ncts.tw
 
 
 ## I) Version History
