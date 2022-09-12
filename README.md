@@ -36,7 +36,7 @@ in the results folder.
 - The script *Driver_Animation* can be used to generate a video of 
 the simulation. The script *Driver_shocktube_profiles* generates the 
 profile plots for the shock tube example.
-- The script *Driver_shear_cavity_steady_state.m* generates the plots for
+- The script *Driver_shear_cavity_steady_state* generates the plots for
 the shear-driven cavity problem at the steady state.
 - The script *Driver_Sod_shocktube* can be used to visualize the profiles
 of the exact solution to the classical Sod shock tube problem.
