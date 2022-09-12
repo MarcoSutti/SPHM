@@ -1,10 +1,10 @@
-# SPHM: A MATLAB code for SPH simulations
+# SPHM: A MATLAB package for SPH simulations
  
 This is a collection of MATLAB files for SPH simulations.
 
 The code is mainly based on the corresponding FORTRAN code contained in:
-[1] Liu GR, Liu MB (2003) Smoothed particle hydrodynamics: a meshfree
-    particle method. World Scientific, Singapore.
+[1] Liu, G. R. and Liu, M. B. Smoothed particle hydrodynamics: a meshfree
+    particle method. World Scientific, Singapore, 2003.
 
 If there are any problems or bugs, feel free to email me at msutti (at) ncts.tw
 
