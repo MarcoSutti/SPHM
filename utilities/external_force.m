@@ -7,7 +7,7 @@ function [ ext_dvdt, magnitude_ext_dvdt ] = external_force( geom, sph, ia )
 
 % ext_dvdt: part of the acceleration due to the external forces.
 
-% Created:     ??.??.2011
+% Created:     2011
 % Last change: 24.06.2021
 
 %   Jul 10, 2021:

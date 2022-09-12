@@ -9,7 +9,7 @@ function [ flp, sph, int_dedt, int_dvdt ] = internal_force( geom, sph, flp, ia )
 
 % art_dvdt: part of the acceleration due to the internal forces
 
-% Created:     ??.??.2011
+% Created:     2011
 % Last change: 10.06.2021
 
 %   Jun 9, 2021:

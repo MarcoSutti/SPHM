@@ -3,9 +3,11 @@ function [ geom, sph, flp  ] = time_integration( geom, sph, flp, tip, plt )
 % function [ geom, sph, flp  ] = time_integration( geom, sph, flp, tip, plt )
 % Purpose: Performs time integration.
 
-% Created:     ??.??.2011
-% Last change: 24.06.2021
+% Created:     2011
+% Last change: 2022.09.12
 
+%   Sep 12, 2022:
+%       Added "plt" as input parameter of single_step.
 %   Jun 24, 2021:
 %       Added "geom" as output parameter of single_step.
 %   Jun 20, 2021:
@@ -88,7 +90,7 @@ for its = ( tip.nstart + 1 ):( tip.nstart + tip.max_nts )
     
     % Definition of variables out of the function vector:
     % Call the function single_step
-    [ geom, flp, tip ] = single_step( geom, sph, flp, tip );
+    [ geom, flp, tip ] = single_step( geom, sph, flp, tip, plt );
     
     if its == 1
         temp_e = zeros( geom.nrp, 1 );

@@ -3,7 +3,7 @@ function [ W, dWdx ] = kernel( r_ij, x_ij, hsml_ij, geom, sph )
 % function [ W, dWdx ] = kernel( r_ij, x_ij, hsml_ij, geom, sph )
 % Calculates the smoothing kernel W and its derivatives dWdx.
 
-% Created:     ??.??.2011
+% Created:     2011
 % Last change: 22.06.2021
 
 %   Jun 22, 2021:

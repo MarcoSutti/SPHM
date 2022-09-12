@@ -3,7 +3,7 @@ function [ sph ] = viscosity( geom, sph )
 % function [ sph ] = viscosity( geom, sph )
 % Purpose: Defines the fluid particle sph.viscosity eta [kg/(m*s)]
 
-% Created:     ??.??.2011
+% Created:     2011
 % Last change: 09.06.2021
 
 %   Jun 9, 2021:

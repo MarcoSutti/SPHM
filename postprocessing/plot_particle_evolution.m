@@ -2,7 +2,7 @@ function [] = plot_particle_evolution( geom, plt, time )
 
 % function [] = plot_particle_evolution( geom, plt, time )
 % Purpose: Plot particles evolution.
-% Created:     ??.??.2011
+% Created:     2011
 % Last change: 20.06.2021
 
 %==========================================================================
@@ -32,7 +32,7 @@ if geom.dim == 1
     end
     axis equal
     axis( [ -2.5, 1, -0.5, 0.5 ] )
-    title( [ 'time = ', num2str(time) ] );
+    title( [ 'time = ', num2str(time), ' s' ] );
     
     pause(0.01)
     hold off
@@ -66,7 +66,7 @@ elseif geom.dim == 2
         'MarkerFaceColor', plt.color.gray1, 'MarkerSize', 7 );
     
     
-    title( [ 'time = ', num2str(time) ] );
+    title( [ 'time = ', num2str(time), ' s' ] );
     
     pause(0.01)
     hold off
@@ -101,7 +101,7 @@ elseif geom.dim == 3
         hold on
     end
     
-    title( [ 'time = ', num2str(time) ] );
+    title( [ 'time = ', num2str(time), ' s' ] );
     
     pause(0.01)
     hold off

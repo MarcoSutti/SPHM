@@ -5,7 +5,7 @@ function [ avg_v ] = avg_velocity( geom, sph, flp, ia )
 % penetration (Monaghan, 1992). See p. 138, about XSPH technique,
 % or Monaghan, 1992.
 
-% Created:     ??.??.2011
+% Created:     2011
 % Last change: 02.02.2022
 
 % avg_v: average velocity of each particle.

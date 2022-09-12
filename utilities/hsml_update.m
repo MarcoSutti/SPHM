@@ -3,7 +3,7 @@ function [ sph ] = hsml_update( geom, sph, flp, timeint, ia )
 % function [ sph ] = hsml_update( geom, sph, flp, timeint, ia )
 % Purpose: Calculates the evolution of the smoothing length.
 
-% Created:     ??.??.2011
+% Created:     2011
 % Last change: 09.06.2021
 
 %   Jun 9, 2021:
