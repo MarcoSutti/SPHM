@@ -4,7 +4,7 @@ This is a collection of MATLAB files for SPH simulations.
 
 For documentation, please refer to the document:
 
-- [SPHM: a MATLAB package for Smoothed Particle Hydrodynamics simulations](https://www.marcosutti.net/files/SPHM_a_MATLAB_package_for_SPH_simulations.pdf),
+- [SPHM: a MATLAB package for Smoothed Particle Hydrodynamics simulations](https://arxiv.org/abs/2209.05189),
 M. Sutti, Tech. report, September 2022.
 
 The code is mainly based on the corresponding FORTRAN code contained in:
