@@ -3,7 +3,7 @@ function [ flp ] = p_gas( flp, sph )
 % function [ flp ] = p_gas( flp, sph )
 % Gamma law equation of state. Subroutine to calculate the pressure and
 % speed of sound for air (ideal gas).
-% Created:     ??.??.2011
+% Created:     2011
 % Last change: 18.08.2019
 
 % rho    : density                                              [in];

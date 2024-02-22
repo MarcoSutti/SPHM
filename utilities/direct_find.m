@@ -6,7 +6,7 @@ function [ ia ] = direct_find( geom, sph )
 % and Eastwood, 1988; Hernquist and Katz, 1989; Riffert et al., 1995) in
 % order to reduce the computational effort (see p. 148).
 
-% Created:     ??.??.2011
+% Created:     2011
 % Last change: 02.02.2022
 
 %   Jan 2, 2022:

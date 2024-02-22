@@ -2,7 +2,7 @@ function [ flp ] = summation_density( geom, sph, flp, ia )
 
 % function [ flp ] = summation_density( geom, sph, flp, ia )
 % Calculates the density with SPH summation algorithm.
-% Created:     ??.??.2011
+% Created:     2011
 % Last change: 10.06.2021
 
 %   Jan 2, 2021:

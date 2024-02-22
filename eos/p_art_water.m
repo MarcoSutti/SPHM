@@ -2,7 +2,7 @@ function [ flp ] = p_art_water( flp, sph, geom )
 
 % function [ flp ] = p_art_water( flp, sph, geom )
 % Computes pressure and sound speed for artificial water.
-% Created:     ??.??.2011
+% Created:     2011
 % Last change: 24.06.2021
 
 % %==========================================================================
@@ -39,7 +39,9 @@ function [ flp ] = p_art_water( flp, sph, geom )
 % Equation of state for artificial water
 % Form 2 (Morris, 1997)
 %==========================================================================
+% Define the speed of sound for the total number of particles
 flp.c = 0.01 * ones( geom.tnp, 1 );
+% Compute the pressure as speed of sound times density
 flp.p = (flp.c.^2).*flp.rho;      
 
 end

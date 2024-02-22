@@ -1,11 +1,10 @@
 %==========================================================================
 % Contains all the parameters for the SPH simulation.
-% Created:     17.06.2021
-% Last change: 20.06.2021
+% Created:     06.08.2021
+% Last change: 06.08.2021
 
-%   Jun 10, 2021:
-%       Added option for quartic smoothing kernel by Liu, Liu and Lam
-%       (2002).
+%   Aug 6, 2021:
+%       Created.
 %==========================================================================
 %                              INPUT DATA
 %==========================================================================
@@ -16,24 +15,24 @@ tip.nstart = 0;
 
 % Time-step type (1 = fixed, 2 = adaptive, Monaghan [1994], 3 = adaptive,
 % Monaghan and Kos [1999])
-tip.ts_type = 2;
+tip.ts_type = 1;
 
 % If you choose an adaptive time-step technique, this value is used just
 % for the first time-step and all the subsequent time-steps are computed
 % according to the chosen adaptive technique.
 % N.B.: the time-step has to satisfy the Courant-Friedrichs-Levy (CFL)
 % condition for an explicit scheme to be stable.
-tip.dt = 5e-5;   % for the 2D shear cavity problem.
+tip.dt = 1e-3;
 
 % Maximum number of time-steps
 tip.max_nts = 10000;
 %==========================================================================
 % Type of fluid (1 = gas, 2 = water)
-flp.fluid_type = 2;
+flp.fluid_type = 1;
 %==========================================================================
 % plt.real_time = false, no real time
 %               = true, real time
-plt.real_time = true;
+plt.real_time = false;
 
 % Type of plot:
 % plt.type = 1, position (and velocity quiver if plt.velocity = 1)
@@ -43,7 +42,7 @@ plt.type = 1;
 
 % plt.velocity = false, no velocity quiver
 %              = true, velocity quiver
-plt.velocity = false;
+plt.velocity = true;
 %==========================================================================
 
 % Maximum number of real particles
@@ -64,7 +63,7 @@ sph.NNPS = 1;
 % sph.sle = 0 : Keep unchanged,
 %           1 : h(i)=sigma*(sph.mass(i)/flp.rho(i))^(1/geom.dim)        [Monaghan, 2005]
 %           2 : dh/tip.dt = (-1/geom.dim)*(h/flp.rho)*(drho/tip.dt)         [Benz, 1989]
-sph.sle = 0;
+sph.sle = 1;
 
 % Factor for defining the smoothing length.
 % Monaghan and Kajtar (2009) also used a value of 1.3-1.5
@@ -75,7 +74,7 @@ hsml_factor = 1.5;
 %         = 2, Gauss kernel   (Gingold and Monaghan 1981)
 %         = 3, Quintic kernel (Morris 1997)
 %         = 4, Quartic kernel (Liu, Liu and Lam 2002)
-sph.skf = 1;
+sph.skf = 4;
 
 %--------------------------------------------------------------------------
 % Switches for different senarios
@@ -86,7 +85,7 @@ sph.sum_density = true;
 
 % sph.average_velocity = true : Monaghan treatment on average velocity,
 %                        false: No average treatment.
-sph.avg_velocity = false;
+sph.avg_velocity = true;
 
 % sph.virtual_part     = true : Use virtual particle,
 %                        false: No use of vritual particle.
@@ -110,14 +109,14 @@ sph.heat_artificial = false;
 
 % sph.gravity_force = true : Considering sph.gravity_force,
 %                     false: No considering of sph.gravity_force
-sph.gravity_force = false;
+sph.gravity_force = true;
 
 % Gravitational acceleration
 sph.g = -9.81;
 
 % sph.normalized_density = true : Density normalization by using CSPM,
 %                        = false: No normalization.
-sph.normalized_density = false;
+sph.normalized_density = true;
 
 % sph.boundary_force_approach
 % Opt. 1: Boundary particle force and penalty anti-penetration force
@@ -134,7 +133,7 @@ sph.max_nia = 100 * geom.max_nrp;
 % sph.verbose = 0, no information on console
 %             = 1, basic information
 %             = 2, Statistics: interactions per particle
-sph.verbose = 1;
+sph.verbose = 0;
 
 % Parameters for the artificial viscosity: alpha and beta are constants
 % that are typically set around one (see p. 126).

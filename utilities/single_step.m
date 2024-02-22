@@ -1,12 +1,14 @@
-function [ geom, flp, tip ] = single_step( geom, sph, flp, tip )
+function [ geom, flp, tip ] = single_step( geom, sph, flp, tip, plt )
 
-% function [ geom, flp, tip ] = single_step( geom, sph, flp, tip )
+% function [ geom, flp, tip ] = single_step( geom, sph, flp, tip, plt )
 % Determines the right hand side of a differential equation in a single
 % step for performing time integration.
 % In this routine and its subroutines the SPH algorithms are performed.
-% Created:     ??.??.2011
-% Last change: 24.06.2020
+% Created:     2011
+% Last change: 2021.09.12
 
+%   Sep 12, 2022:
+%       Added "plt" as input parameter.
 %   Jun 24, 2021:
 %       Added "geom" as output parameter.
 %       Added if statement for generation of virtual particles.
@@ -26,6 +28,18 @@ if sph.virtual_part
     switch sph.example
         case 2
             [ geom, sph, flp ] = shear_cavity_virtual_part( geom, sph, flp );
+            if plt.real_time
+                plot_particle_evolution( geom, plt, 0 );
+                axis( [ 0, 1e-3, 0, 1e-3 ] )
+                
+                xlabel('$ x_{1} $')
+                ylabel('$ x_{2} $')
+                % Save plot to eps file
+                fileName = 'plots/shear_cavity_time_0s';
+                saveas( gcf, fileName, 'epsc' )
+                fprintf('Saved graph to file %s.eps.\n', fileName);
+                return
+            end
         case 3
             [ geom, sph, flp ] = dam_collapse_virtual_part( geom, sph, flp );
         otherwise

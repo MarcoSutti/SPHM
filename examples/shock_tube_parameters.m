@@ -26,14 +26,14 @@ tip.ts_type = 1;
 tip.dt = 5e-3;
 
 % Maximum number of time-steps
-tip.max_nts = 40;
+tip.max_nts = 100;
 %==========================================================================
 % Type of fluid (1 = gas, 2 = water)
 flp.fluid_type = 1;
 %==========================================================================
 % plt.real_time = false, no real time
 %               = true, real time
-plt.real_time = false;
+plt.real_time = true;
 
 % Type of plot:
 % plt.type = 1, position (and velocity quiver if plt.velocity = 1)

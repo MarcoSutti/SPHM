@@ -1,6 +1,6 @@
 % Startup.
 % Created:     08.07.2011
-% Last change: 08.07.2021
+% Last change: 08.09.2022
 
 close all; clear; clc;
 set( 0, 'defaultAxesTickLabelInterpreter', 'latex' );
@@ -8,7 +8,7 @@ set( 0, 'defaultLegendInterpreter',        'latex' );
 set( 0, 'defaultTextInterpreter',          'latex' );
 set( 0, 'defaultAxesFontSize', 14 );
 
-addpath(genpath('../sph_matlab'))
+addpath(genpath('.'))
 
 %--------------------------------------------------------------------------
 % Define some more modern colors:

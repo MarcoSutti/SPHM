@@ -3,7 +3,7 @@ function [ art_dvdt, art_visc, max_phi_ij ] = artificial_viscosity( geom, sph, f
 % function [ art_dvdt, art_visc, max_phi_ij ] = artificial_viscosity( geom, sph, flp, ia )
 % art_dvdt: part of the acceleration due to the artificial viscosity
 
-% Created:     ??.??.2011
+% Created:     2011
 % Last change: 09.06.2021
 
 %   Jun 9, 2021:
