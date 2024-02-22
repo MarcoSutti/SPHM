@@ -1,4 +1,4 @@
-function [ geom, flp, tip ] = single_step( geom, sph, flp, tip, plt )
+function [ geom, flp, tip ] = single_step( geom, sph, flp, tip )
 
 % function [ geom, flp, tip ] = single_step( geom, sph, flp, tip, plt )
 % Determines the right hand side of a differential equation in a single
@@ -28,18 +28,18 @@ if sph.virtual_part
     switch sph.example
         case 2
             [ geom, sph, flp ] = shear_cavity_virtual_part( geom, sph, flp );
-            if plt.real_time
-                plot_particle_evolution( geom, plt, 0 );
-                axis( [ 0, 1e-3, 0, 1e-3 ] )
-                
-                xlabel('$ x_{1} $')
-                ylabel('$ x_{2} $')
-                % Save plot to eps file
-                fileName = 'plots/shear_cavity_time_0s';
-                saveas( gcf, fileName, 'epsc' )
-                fprintf('Saved graph to file %s.eps.\n', fileName);
-                return
-            end
+            %             if plt.real_time
+            %                 plot_particle_evolution( geom, plt, 0 );
+            %                 axis( [ 0, 1e-3, 0, 1e-3 ] )
+            %
+            %                 xlabel('$ x_{1} $')
+            %                 ylabel('$ x_{2} $')
+            %                 % Save plot to eps file
+            %                 fileName = 'plots/shear_cavity_time_0s';
+            %                 saveas( gcf, fileName, 'epsc' )
+            %                 fprintf('Saved graph to file %s.eps.\n', fileName);
+            %                 return
+            %             end
         case 3
             [ geom, sph, flp ] = dam_collapse_virtual_part( geom, sph, flp );
         otherwise

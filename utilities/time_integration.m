@@ -90,7 +90,7 @@ for its = ( tip.nstart + 1 ):( tip.nstart + tip.max_nts )
     
     % Definition of variables out of the function vector:
     % Call the function single_step
-    [ geom, flp, tip ] = single_step( geom, sph, flp, tip, plt );
+    [ geom, flp, tip ] = single_step( geom, sph, flp, tip );
     
     if its == 1
         temp_e = zeros( geom.nrp, 1 );

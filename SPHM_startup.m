@@ -8,11 +8,7 @@ set( 0, 'defaultLegendInterpreter',        'latex' );
 set( 0, 'defaultTextInterpreter',          'latex' );
 set( 0, 'defaultAxesFontSize', 14 );
 
-<<<<<<< HEAD
 addpath(genpath('.'))
-=======
-addpath(genpath('../SPHM'))
->>>>>>> refs/remotes/origin/main
 
 %--------------------------------------------------------------------------
 % Define some more modern colors:
