@@ -26,7 +26,7 @@ tip.ts_type = 1;
 tip.dt = 5e-3;
 
 % Maximum number of time-steps
-tip.max_nts = 100;
+tip.max_nts = 40;
 %==========================================================================
 % Type of fluid (1 = gas, 2 = water)
 flp.fluid_type = 1;

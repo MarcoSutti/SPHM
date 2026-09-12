@@ -4,8 +4,12 @@ function [ geom, sph, flp  ] = time_integration( geom, sph, flp, tip, plt )
 % Purpose: Performs time integration.
 
 % Created:     2011
-% Last change: 2022.09.12
+% Last change: 2026.09.12
 
+%   Sep 12, 2026:
+%       Corrected a bug, after suggestion of Navaneet Villodi. Now we store
+%       the newly computed energy derivative, dedt = tip.dedt, immediately
+%       after the call to single_step.
 %   Sep 12, 2022:
 %       Added "plt" as input parameter of single_step.
 %   Jun 24, 2021:
@@ -87,27 +91,30 @@ for its = ( tip.nstart + 1 ):( tip.nstart + tip.max_nts )
         %... update velocity half a time step
         geom.v(irp, :) = geom.v(irp, :) + (tip.dt/2) * tip.dvdt(irp, :);
     end
-    
+
     % Definition of variables out of the function vector:
     % Call the function single_step
     [ geom, flp, tip ] = single_step( geom, sph, flp, tip );
-    
+
+    % Fix for internal-energy time integration; issue identified following
+    % a suggestion by Navaneet Villodi.
+    dedt = tip.dedt;
+
     if its == 1
         temp_e = zeros( geom.nrp, 1 );
-        
+
         if geom.dim == 1
             temp_e = -geom.nsym * flp.p.*geom.v(irp)./( geom.x(irp).*flp.rho );
         end
-        
+
         % If this is the first timestep, then update energy half a time step
         sph.e(irp) = sph.e(irp) + (tip.dt/2) * ( dedt + temp_e );
-        
+
         % If the energy so computed is negative, then set it to zero
         sph.e( sph.e(irp) < 0 ) = 0;
         
         if ~sph.sum_density
             % If we are not using the summation density approach...
-            
             temp_rho = zeros( geom.nrp, 1 );
             
             if geom.dim == 1
